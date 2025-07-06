@@ -2,6 +2,9 @@ import type { CollectionConfig } from 'payload'
 
 const Hero: CollectionConfig = {
   slug: 'hero',
+  access: {
+    read: () => true,
+  },
   admin: {
     useAsTitle: 'mainTitle',
   },
