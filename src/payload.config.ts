@@ -17,7 +17,6 @@ const dirname = path.dirname(filename)
 // Environment variables
 const dbUrl = process.env.DATABASE_URI || ''
 const secret = process.env.SECRET || ''
-
 // Validate required environment variables
 if (!dbUrl) {
   throw new Error('DATABASE_URI environment variable is required')
