@@ -54,4 +54,11 @@ export default buildConfig({
     payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
+  // --- CORS settings to allow local and deployed frontends ---
+  cors: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:8080',
+    'https://payload-cms-ai-booking.vercel.app',
+  ],
 })
