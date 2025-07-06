@@ -9,9 +9,28 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import Hero from './collections/Hero'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+// Environment variables
+const dbUrl = process.env.DATABASE_URI || ''
+const secret = process.env.PAYLOAD_SECRET || ''
+
+// Validate required environment variables
+if (!dbUrl) {
+  throw new Error('DATABASE_URI environment variable is required')
+}
+
+if (!secret) {
+  throw new Error('PAYLOAD_SECRET environment variable is required')
+}
+
+// Log configuration (remove in production)
+console.log('Payload Config:')
+console.log('- Database URL:', dbUrl ? 'SET' : 'NOT SET')
+console.log('- Secret:', secret ? 'SET' : 'NOT SET')
 
 export default buildConfig({
   admin: {
@@ -20,14 +39,14 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Hero],
   editor: lexicalEditor(),
-  secret: process.env.PAYLOAD_SECRET || '',
+  secret: secret,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: mongooseAdapter({
-    url: process.env.DATABASE_URI || '',
+    url: dbUrl,
   }),
   sharp,
   plugins: [
