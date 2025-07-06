@@ -16,7 +16,7 @@ const dirname = path.dirname(filename)
 
 // Environment variables
 const dbUrl = process.env.DATABASE_URI || ''
-const secret = process.env.PAYLOAD_SECRET || ''
+const secret = process.env.SECRET || ''
 
 // Validate required environment variables
 if (!dbUrl) {
@@ -24,12 +24,12 @@ if (!dbUrl) {
 }
 
 if (!secret) {
-  throw new Error('PAYLOAD_SECRET environment variable is required')
+  throw new Error('SECRET environment variable is required')
 }
 
 // Log configuration (remove in production)
 console.log('Payload Config:')
-console.log('- Database URL:', dbUrl ? 'SET' : 'NOT SET')
+console.log('- Database URI:', dbUrl ? 'SET' : 'NOT SET')
 console.log('- Secret:', secret ? 'SET' : 'NOT SET')
 
 export default buildConfig({
