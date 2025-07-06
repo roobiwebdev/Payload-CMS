@@ -46,7 +46,9 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
-    url: dbUrl,
+    pool: {
+      connectionString: dbUrl,
+    },
   }),
   sharp,
   plugins: [
