@@ -16,6 +16,7 @@ import Demo from './collections/Demo'
 import BeforeAfter from './collections/BeforeAfter'
 import FAQ from './collections/FAQ'
 import Contact from './collections/Contact'
+import Footer from './collections/Footer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -44,7 +45,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Hero, Benefits, SocialProof, Demo, BeforeAfter, FAQ, Contact],
+  collections: [Users, Media, Hero, Benefits, SocialProof, Demo, BeforeAfter, FAQ, Contact, Footer],
   editor: lexicalEditor(),
   secret: secret,
   typescript: {

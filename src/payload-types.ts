@@ -76,6 +76,7 @@ export interface Config {
     beforeAfter: BeforeAfter;
     faq: Faq;
     contact: Contact;
+    footer: Footer;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -91,6 +92,7 @@ export interface Config {
     beforeAfter: BeforeAfterSelect<false> | BeforeAfterSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
+    footer: FooterSelect<false> | FooterSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -359,6 +361,45 @@ export interface Contact {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: number;
+  companyName: string;
+  companyDescription: string;
+  socialLinks: {
+    /**
+     * e.g. Linkedin, Twitter, Youtube
+     */
+    platform: string;
+    url: string;
+    id?: string | null;
+  }[];
+  solutionLinks: {
+    label: string;
+    url: string;
+    id?: string | null;
+  }[];
+  resourcesLinks: {
+    label: string;
+    url: string;
+    id?: string | null;
+  }[];
+  contactInfo: {
+    phone: string;
+    email: string;
+    address: string;
+  };
+  bottomLinks: {
+    label: string;
+    url: string;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -399,6 +440,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'contact';
         value: number | Contact;
+      } | null)
+    | ({
+        relationTo: 'footer';
+        value: number | Footer;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -675,6 +720,51 @@ export interface ContactSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         buttonText?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  companyName?: T;
+  companyDescription?: T;
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        id?: T;
+      };
+  solutionLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  resourcesLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  contactInfo?:
+    | T
+    | {
+        phone?: T;
+        email?: T;
+        address?: T;
+      };
+  bottomLinks?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;
