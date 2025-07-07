@@ -13,6 +13,7 @@ import Hero from './collections/Hero'
 import Benefits from './collections/Benefits'
 import SocialProof from './collections/SocialProof'
 import Demo from './collections/Demo'
+import BeforeAfter from './collections/BeforeAfter'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -41,7 +42,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Hero, Benefits, SocialProof, Demo],
+  collections: [Users, Media, Hero, Benefits, SocialProof, Demo, BeforeAfter],
   editor: lexicalEditor(),
   secret: secret,
   typescript: {

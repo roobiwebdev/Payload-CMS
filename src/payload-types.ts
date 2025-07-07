@@ -72,6 +72,8 @@ export interface Config {
     hero: Hero;
     benefits: Benefit;
     socialProof: SocialProof;
+    demo: Demo;
+    beforeAfter: BeforeAfter;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +85,8 @@ export interface Config {
     hero: HeroSelect<false> | HeroSelect<true>;
     benefits: BenefitsSelect<false> | BenefitsSelect<true>;
     socialProof: SocialProofSelect<false> | SocialProofSelect<true>;
+    demo: DemoSelect<false> | DemoSelect<true>;
+    beforeAfter: BeforeAfterSelect<false> | BeforeAfterSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -242,6 +246,58 @@ export interface SocialProof {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "demo".
+ */
+export interface Demo {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  videoThumbnail: string;
+  videoTitle: string;
+  videoDescription: string;
+  features: {
+    /**
+     * Use lucide-react icon names: Play, Monitor, Smartphone, Tablet, ArrowRight
+     */
+    icon: string;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  ctaText: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "beforeAfter".
+ */
+export interface BeforeAfter {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  beforeItems: {
+    text: string;
+    id?: string | null;
+  }[];
+  afterItems: {
+    text: string;
+    id?: string | null;
+  }[];
+  roiStats: {
+    value: number;
+    suffix?: string | null;
+    label: string;
+    id?: string | null;
+  }[];
+  ctaText: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -266,6 +322,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'socialProof';
         value: number | SocialProof;
+      } | null)
+    | ({
+        relationTo: 'demo';
+        value: number | Demo;
+      } | null)
+    | ({
+        relationTo: 'beforeAfter';
+        value: number | BeforeAfter;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -426,6 +490,61 @@ export interface SocialProofSelect<T extends boolean = true> {
         logo?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "demo_select".
+ */
+export interface DemoSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  videoThumbnail?: T;
+  videoTitle?: T;
+  videoDescription?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "beforeAfter_select".
+ */
+export interface BeforeAfterSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  beforeItems?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  afterItems?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  roiStats?:
+    | T
+    | {
+        value?: T;
+        suffix?: T;
+        label?: T;
+        id?: T;
+      };
+  ctaText?: T;
   updatedAt?: T;
   createdAt?: T;
 }
