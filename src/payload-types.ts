@@ -71,6 +71,7 @@ export interface Config {
     media: Media;
     hero: Hero;
     benefits: Benefit;
+    socialProof: SocialProof;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -81,6 +82,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     hero: HeroSelect<false> | HeroSelect<true>;
     benefits: BenefitsSelect<false> | BenefitsSelect<true>;
+    socialProof: SocialProofSelect<false> | SocialProofSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -209,6 +211,37 @@ export interface Benefit {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialProof".
+ */
+export interface SocialProof {
+  id: number;
+  title: string;
+  subtitle: string;
+  stats: {
+    value: number;
+    suffix?: string | null;
+    label: string;
+    id?: string | null;
+  }[];
+  testimonials: {
+    name: string;
+    role: string;
+    company: string;
+    content: string;
+    rating: number;
+    avatar: string;
+    id?: string | null;
+  }[];
+  partners: {
+    name: string;
+    logo: string;
+    id?: string | null;
+  }[];
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -229,6 +262,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'benefits';
         value: number | Benefit;
+      } | null)
+    | ({
+        relationTo: 'socialProof';
+        value: number | SocialProof;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -353,6 +390,42 @@ export interface BenefitsSelect<T extends boolean = true> {
         id?: T;
       };
   ctaText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "socialProof_select".
+ */
+export interface SocialProofSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  stats?:
+    | T
+    | {
+        value?: T;
+        suffix?: T;
+        label?: T;
+        id?: T;
+      };
+  testimonials?:
+    | T
+    | {
+        name?: T;
+        role?: T;
+        company?: T;
+        content?: T;
+        rating?: T;
+        avatar?: T;
+        id?: T;
+      };
+  partners?:
+    | T
+    | {
+        name?: T;
+        logo?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
