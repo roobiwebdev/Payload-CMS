@@ -75,6 +75,7 @@ export interface Config {
     demo: Demo;
     beforeAfter: BeforeAfter;
     faq: Faq;
+    contact: Contact;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -89,6 +90,7 @@ export interface Config {
     demo: DemoSelect<false> | DemoSelect<true>;
     beforeAfter: BeforeAfterSelect<false> | BeforeAfterSelect<true>;
     faq: FaqSelect<false> | FaqSelect<true>;
+    contact: ContactSelect<false> | ContactSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -318,6 +320,45 @@ export interface Faq {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact".
+ */
+export interface Contact {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  contactInfo: {
+    phone: string;
+    phoneHours: string;
+    email: string;
+    emailResponseTime: string;
+    location: string;
+    locationNote: string;
+  };
+  demoProcess: {
+    stepNumber: number;
+    title: string;
+    description: string;
+    id?: string | null;
+  }[];
+  guarantees: {
+    /**
+     * Use lucide-react icon names like CheckCircle, Shield
+     */
+    icon: string;
+    text: string;
+    id?: string | null;
+  }[];
+  finalCTA: {
+    title: string;
+    description: string;
+    buttonText: string;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -354,6 +395,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'faq';
         value: number | Faq;
+      } | null)
+    | ({
+        relationTo: 'contact';
+        value: number | Contact;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -588,6 +633,49 @@ export interface FaqSelect<T extends boolean = true> {
         id?: T;
       };
   ctaText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact_select".
+ */
+export interface ContactSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  contactInfo?:
+    | T
+    | {
+        phone?: T;
+        phoneHours?: T;
+        email?: T;
+        emailResponseTime?: T;
+        location?: T;
+        locationNote?: T;
+      };
+  demoProcess?:
+    | T
+    | {
+        stepNumber?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  guarantees?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
+      };
+  finalCTA?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttonText?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }
