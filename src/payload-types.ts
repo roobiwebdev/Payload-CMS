@@ -74,6 +74,7 @@ export interface Config {
     socialProof: SocialProof;
     demo: Demo;
     beforeAfter: BeforeAfter;
+    faq: Faq;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -87,6 +88,7 @@ export interface Config {
     socialProof: SocialProofSelect<false> | SocialProofSelect<true>;
     demo: DemoSelect<false> | DemoSelect<true>;
     beforeAfter: BeforeAfterSelect<false> | BeforeAfterSelect<true>;
+    faq: FaqSelect<false> | FaqSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -298,6 +300,24 @@ export interface BeforeAfter {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq".
+ */
+export interface Faq {
+  id: number;
+  title: string;
+  subtitle: string;
+  description: string;
+  faqs: {
+    question: string;
+    answer: string;
+    id?: string | null;
+  }[];
+  ctaText: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -330,6 +350,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'beforeAfter';
         value: number | BeforeAfter;
+      } | null)
+    | ({
+        relationTo: 'faq';
+        value: number | Faq;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -542,6 +566,25 @@ export interface BeforeAfterSelect<T extends boolean = true> {
         value?: T;
         suffix?: T;
         label?: T;
+        id?: T;
+      };
+  ctaText?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq_select".
+ */
+export interface FaqSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  description?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
         id?: T;
       };
   ctaText?: T;
