@@ -56,9 +56,10 @@ export default buildConfig({
   ],
   // --- CORS settings to allow local and deployed frontends ---
   cors: [
+    'https://ai-booking-nexus.vercel.app', // <-- ADD THIS LINE
+    'https://payload-cms-ai-booking.vercel.app',
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:8080',
-    'https://payload-cms-ai-booking.vercel.app',
   ],
 })
