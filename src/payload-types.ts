@@ -70,6 +70,7 @@ export interface Config {
     users: User;
     media: Media;
     hero: Hero;
+    benefits: Benefit;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -79,6 +80,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     hero: HeroSelect<false> | HeroSelect<true>;
+    benefits: BenefitsSelect<false> | BenefitsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -185,6 +187,28 @@ export interface Hero {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "benefits".
+ */
+export interface Benefit {
+  id: number;
+  title: string;
+  subtitle: string;
+  benefits: {
+    /**
+     * Use icon names from lucide-react like Clock, Shield, Brain, Users, BarChart3, Zap
+     */
+    icon: string;
+    title: string;
+    description: string;
+    metric: string;
+    id?: string | null;
+  }[];
+  ctaText: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -201,6 +225,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'hero';
         value: number | Hero;
+      } | null)
+    | ({
+        relationTo: 'benefits';
+        value: number | Benefit;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -305,6 +333,26 @@ export interface HeroSelect<T extends boolean = true> {
         id?: T;
       };
   showScrollIndicator?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "benefits_select".
+ */
+export interface BenefitsSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  benefits?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        metric?: T;
+        id?: T;
+      };
+  ctaText?: T;
   updatedAt?: T;
   createdAt?: T;
 }
