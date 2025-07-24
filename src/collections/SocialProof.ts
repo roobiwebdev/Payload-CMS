@@ -7,6 +7,32 @@ const SocialProof: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'title',
+    livePreview: {
+      breakpoints: [
+        {
+          label: 'Mobile',
+          name: 'mobile',
+          width: 375,
+          height: 667,
+        },
+        {
+          label: 'Tablet',
+          name: 'tablet',
+          width: 768,
+          height: 1024,
+        },
+        {
+          label: 'Desktop',
+          name: 'desktop',
+          width: 1440,
+          height: 900,
+        },
+      ],
+      url: ({ data }) => {
+        // Preview URL for Social Proof section
+        return `${process.env.FRONTEND_URL || 'http://localhost:8081'}/preview/social-proof/${data?.id || 'new'}`
+      },
+    },
   },
   labels: {
     singular: 'Social Proof Section',

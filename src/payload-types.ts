@@ -77,6 +77,7 @@ export interface Config {
     faq: Faq;
     contact: Contact;
     footer: Footer;
+    pages: Page;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -93,6 +94,7 @@ export interface Config {
     faq: FaqSelect<false> | FaqSelect<true>;
     contact: ContactSelect<false> | ContactSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -178,7 +180,7 @@ export interface Media {
  */
 export interface Hero {
   id: number;
-  iframeUrl?: string | null;
+  backgroundIframeUrl?: string | null;
   badgeText: string;
   mainTitle: string;
   gradientTitle: string;
@@ -400,6 +402,138 @@ export interface Footer {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  /**
+   * URL slug for the page (e.g., "home", "about")
+   */
+  slug: string;
+  status: 'draft' | 'published';
+  hero?: {
+    badge?: string | null;
+    title?: string | null;
+    subtitle?: string | null;
+    ctaPrimary?: string | null;
+    ctaSecondary?: string | null;
+    trustIndicators?:
+      | {
+          icon?: string | null;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  benefits?:
+    | {
+        id?: string | null;
+        icon?: string | null;
+        title?: string | null;
+        description?: string | null;
+        metric?: string | null;
+      }[]
+    | null;
+  socialProof?: {
+    stats?:
+      | {
+          label?: string | null;
+          value?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    testimonials?:
+      | {
+          id?: string | null;
+          name?: string | null;
+          role?: string | null;
+          company?: string | null;
+          content?: string | null;
+          rating?: number | null;
+          avatar?: string | null;
+        }[]
+      | null;
+    partners?:
+      | {
+          id?: string | null;
+          name?: string | null;
+          logo?: string | null;
+        }[]
+      | null;
+  };
+  demo?: {
+    title?: string | null;
+    subtitle?: string | null;
+    features?:
+      | {
+          icon?: string | null;
+          title?: string | null;
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  beforeAfter?: {
+    before?:
+      | {
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    after?:
+      | {
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    roi?:
+      | {
+          label?: string | null;
+          value?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  faq?:
+    | {
+        id?: string | null;
+        question?: string | null;
+        answer?: string | null;
+      }[]
+    | null;
+  contact?: {
+    title?: string | null;
+    subtitle?: string | null;
+    phone?: string | null;
+    email?: string | null;
+    address?: string | null;
+    process?:
+      | {
+          step?: number | null;
+          title?: string | null;
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    guarantees?:
+      | {
+          icon?: string | null;
+          text?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    keywords?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -444,6 +578,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'footer';
         value: number | Footer;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: number | Page;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -532,7 +670,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "hero_select".
  */
 export interface HeroSelect<T extends boolean = true> {
-  iframeUrl?: T;
+  backgroundIframeUrl?: T;
   badgeText?: T;
   mainTitle?: T;
   gradientTitle?: T;
@@ -765,6 +903,146 @@ export interface FooterSelect<T extends boolean = true> {
         label?: T;
         url?: T;
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  status?: T;
+  hero?:
+    | T
+    | {
+        badge?: T;
+        title?: T;
+        subtitle?: T;
+        ctaPrimary?: T;
+        ctaSecondary?: T;
+        trustIndicators?:
+          | T
+          | {
+              icon?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  benefits?:
+    | T
+    | {
+        id?: T;
+        icon?: T;
+        title?: T;
+        description?: T;
+        metric?: T;
+      };
+  socialProof?:
+    | T
+    | {
+        stats?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              id?: T;
+              name?: T;
+              role?: T;
+              company?: T;
+              content?: T;
+              rating?: T;
+              avatar?: T;
+            };
+        partners?:
+          | T
+          | {
+              id?: T;
+              name?: T;
+              logo?: T;
+            };
+      };
+  demo?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        features?:
+          | T
+          | {
+              icon?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+      };
+  beforeAfter?:
+    | T
+    | {
+        before?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        after?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        roi?:
+          | T
+          | {
+              label?: T;
+              value?: T;
+              id?: T;
+            };
+      };
+  faq?:
+    | T
+    | {
+        id?: T;
+        question?: T;
+        answer?: T;
+      };
+  contact?:
+    | T
+    | {
+        title?: T;
+        subtitle?: T;
+        phone?: T;
+        email?: T;
+        address?: T;
+        process?:
+          | T
+          | {
+              step?: T;
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+        guarantees?:
+          | T
+          | {
+              icon?: T;
+              text?: T;
+              id?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
       };
   updatedAt?: T;
   createdAt?: T;
